@@ -1,8 +1,11 @@
-FROM fedora:24
-MAINTAINER Daniel Montoya <daniel@entropy.tech>
+FROM fedora:30
+MAINTAINER emibcn <github.com/emibcn>
 
-RUN dnf install certbot -y && dnf clean all
-RUN mkdir /etc/letsencrypt
+RUN \
+    dnf install certbot -y && \
+    dnf install python -y && \
+    dnf clean all && \
+    mkdir /etc/letsencrypt
 
 COPY secret-patch-template.json /
 COPY deployment-patch-template.json /
