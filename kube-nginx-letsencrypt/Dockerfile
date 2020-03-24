@@ -1,5 +1,5 @@
 FROM fedora:24
-MAINTAINER Seth Jennings <sethdjennings@gmail.com>
+MAINTAINER Daniel Montoya <daniel@entropy.tech>
 
 RUN dnf install certbot -y && dnf clean all
 RUN mkdir /etc/letsencrypt

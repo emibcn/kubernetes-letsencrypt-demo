@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [[ -z $EMAIL || -z $DOMAINS || -z $SECRET ]]; then
-	echo "EMAIL, DOMAINS, and SECRET env vars required"
+if [[ -z $EMAIL || -z $DOMAINS || -z $SECRET || -z $MODE ]]; then
+	echo "EMAIL, DOMAINS, SECRET and MODE env vars required"
 	env
 	exit 1
 fi
@@ -18,7 +18,7 @@ echo "Starting HTTP server..."
 python -m SimpleHTTPServer 80 &
 PID=$!
 echo "Starting certbot..."
-certbot certonly --webroot -w $HOME -n --agree-tos --email ${EMAIL} --no-self-upgrade -d ${DOMAINS}
+certbot certonly --webroot -w $HOME -n --agree-tos --email ${EMAIL} --no-self-upgrade -d ${DOMAINS} $(if [[ $MODE -eq 'dry-run' ]];then echo "--dry-run";fi)
 kill $PID
 echo "Certbot finished. Killing http server..."
 
